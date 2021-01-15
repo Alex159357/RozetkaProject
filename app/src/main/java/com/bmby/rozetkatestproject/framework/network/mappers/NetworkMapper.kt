@@ -1,7 +1,7 @@
 package com.bmby.rozetkatestproject.framework.network.mappers
 
-import com.bmby.rozetkatestproject.framework.cache.models.ImagesCacheEntity
 import com.bmby.rozetkatestproject.framework.network.models.ImageNetworkEntity
+import com.bmby.rozetkatestproject.framework.network.models.SearchNetworkImageModel
 import com.bmby.rozetkatestproject.logic.domain.models.ImageModel
 import com.bmby.rozetkatestproject.logic.domain.util.EntityMapper
 import javax.inject.Inject
@@ -34,5 +34,6 @@ constructor(): EntityMapper<ImageNetworkEntity, ImageModel> {
     fun mapFromEntityList(entities: List<ImageNetworkEntity>): List<ImageModel>{
         return entities.map { mapFromEntity(it) }
     }
+
 
 }

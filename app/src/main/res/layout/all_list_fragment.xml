@@ -34,6 +34,17 @@
             android:text="ALL LIST FRAGMENT" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/main_page_shape"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+    </RelativeLayout>
     <TextView
         android:id="@+id/testCaption"
         android:layout_width="wrap_content"

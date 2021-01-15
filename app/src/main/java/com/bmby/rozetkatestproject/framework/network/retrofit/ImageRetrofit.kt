@@ -1,6 +1,7 @@
 package com.bmby.rozetkatestproject.framework.network.retrofit
 
 import com.bmby.rozetkatestproject.framework.network.models.ImageNetworkEntity
+import com.bmby.rozetkatestproject.framework.network.models.SearchNetworkImageModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,7 +17,8 @@ interface ImageRetrofit {
     @GET("search/photos")
     suspend fun search(
         @Query("client_id") client_id: String,
-        @Query("query") query: String
-    ): List<ImageNetworkEntity>
+        @Query("query") query: String,
+        @Query("page") page : Int
+    ): SearchNetworkImageModel
 
 }

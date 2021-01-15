@@ -29,7 +29,6 @@ class GetImages constructor(
             e.stackTrace
             emit(DataState.Error(e))
         }
-
     }
 
 }

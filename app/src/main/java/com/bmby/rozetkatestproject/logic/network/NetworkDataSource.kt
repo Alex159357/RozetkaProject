@@ -1,5 +1,6 @@
 package com.bmby.rozetkatestproject.logic.network
 
+import com.bmby.rozetkatestproject.framework.network.models.SearchNetworkImageModel
 import com.bmby.rozetkatestproject.logic.domain.models.ImageModel
 
 interface NetworkDataSource {

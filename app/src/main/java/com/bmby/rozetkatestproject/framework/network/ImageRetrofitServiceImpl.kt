@@ -1,6 +1,7 @@
 package com.bmby.rozetkatestproject.framework.network
 
 import com.bmby.rozetkatestproject.framework.network.models.ImageNetworkEntity
+import com.bmby.rozetkatestproject.framework.network.models.SearchNetworkImageModel
 import com.bmby.rozetkatestproject.framework.network.retrofit.ImageRetrofit
 
 class ImageRetrofitServiceImpl constructor(
@@ -10,8 +11,8 @@ class ImageRetrofitServiceImpl constructor(
         return imageRetrofit.get("ytX0jueCagugbalpOGNdM-Rf26c1rStBFW4WcXhV1rE", 30, 1)
     }
 
-    override suspend fun search(request: String): List<ImageNetworkEntity> {
-        return imageRetrofit.search("ytX0jueCagugbalpOGNdM-Rf26c1rStBFW4WcXhV1rE", request)
+    override suspend fun search(request: String): SearchNetworkImageModel {
+        return imageRetrofit.search("ytX0jueCagugbalpOGNdM-Rf26c1rStBFW4WcXhV1rE", request, 100)
     }
 
     //TODO Finish search
