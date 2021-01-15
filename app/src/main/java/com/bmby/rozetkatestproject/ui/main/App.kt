@@ -1,4 +1,4 @@
-package com.bmby.rozetkatestproject.ui
+package com.bmby.rozetkatestproject.ui.main
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

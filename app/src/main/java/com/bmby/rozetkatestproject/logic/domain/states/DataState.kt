@@ -1,4 +1,4 @@
-package com.bmby.rozetkatestproject.data_state
+package com.bmby.rozetkatestproject.logic.domain.states
 
 sealed class DataState<out R> {
 
