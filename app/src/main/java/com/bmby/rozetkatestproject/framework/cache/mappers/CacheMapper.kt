@@ -9,29 +9,18 @@ class CacheMapper
 @Inject
 constructor(): EntityMapper<ImagesCacheEntity, ImageModel> {
     override fun mapFromEntity(entity: ImagesCacheEntity): ImageModel {
-        return ImageModel(
-            id = entity.id,
-            width = entity.width,
-            height = entity.height,
-            color = entity.color,
-            likes = entity.likes,
-            description = entity.description
-        )
+        return ImageModel(entity.id, null, null, null, null, null, null, null)
     }
 
     override fun mapToEntity(domainModel: ImageModel): ImagesCacheEntity {
         return ImagesCacheEntity(
-            id = domainModel.id!!,
-            width = domainModel.width!!,
-            height = domainModel.height!!,
-            color = domainModel.color!!,
-            likes = domainModel.likes!!,
-            description = domainModel.description!!
+            id = domainModel.id!!
         )
     }
 
     fun mapFromEntityList(entities: List<ImagesCacheEntity>): List<ImageModel>{
         return entities.map { mapFromEntity(it) }
     }
+
 
 }

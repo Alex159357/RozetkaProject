@@ -8,7 +8,7 @@ class ImageRetrofitServiceImpl constructor(
     private val imageRetrofit: ImageRetrofit
 ) :ImageRetrofitService {
     override suspend fun get(): List<ImageNetworkEntity> {
-        return imageRetrofit.get("ytX0jueCagugbalpOGNdM-Rf26c1rStBFW4WcXhV1rE", 30, 1)
+        return imageRetrofit.get("ytX0jueCagugbalpOGNdM-Rf26c1rStBFW4WcXhV1rE", 100, 1)
     }
 
     override suspend fun search(request: String): SearchNetworkImageModel {

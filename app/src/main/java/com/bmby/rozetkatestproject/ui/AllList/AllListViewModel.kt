@@ -3,6 +3,7 @@ package com.bmby.rozetkatestproject.ui.AllList
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.bmby.rozetkatestproject.logic.domain.models.ImageModel
 import com.bmby.rozetkatestproject.logic.domain.states.DataState
 import com.bmby.rozetkatestproject.logic.interactors.GetImages
 import kotlinx.coroutines.flow.launchIn
@@ -16,9 +17,9 @@ constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private  val _dataState : MutableLiveData<DataState<String>> = MutableLiveData()
+    private  val _dataState : MutableLiveData<DataState<List<ImageModel>>> = MutableLiveData()
 
-    val dataState: LiveData<DataState<String>> get() = _dataState
+    val dataState: LiveData<DataState<List<ImageModel>>> get() = _dataState
 
     fun setStateEvent(){
         viewModelScope.launch {

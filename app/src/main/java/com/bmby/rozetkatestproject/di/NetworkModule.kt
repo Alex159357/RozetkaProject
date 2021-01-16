@@ -49,7 +49,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideBlogService(retrofit: Retrofit.Builder): ImageRetrofit {
+    fun provideImageService(retrofit: Retrofit.Builder): ImageRetrofit {
         return retrofit
             .build()
             .create(ImageRetrofit::class.java)
