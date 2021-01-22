@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/allListFragment"
-        android:name="com.bmby.rozetkatestproject.ui.AllList.AllListFragment"
+        android:name="com.bmby.rozetkatestproject.ui.fragments.AllList.AllListFragment"
         android:label="all_list_fragment"
         tools:layout="@layout/all_list_fragment" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.bmby.rozetkatestproject.ui.search.SearchFragment"
+        android:name="com.bmby.rozetkatestproject.ui.fragments.search.SearchFragment"
         android:label="search_fragment"
         tools:layout="@layout/search_fragment" />
     <fragment
         android:id="@+id/savedFragment"
-        android:name="com.bmby.rozetkatestproject.ui.saved.SavedFragment"
+        android:name="com.bmby.rozetkatestproject.ui.fragments.saved.SavedFragment"
         android:label="saved_fragment"
         tools:layout="@layout/saved_fragment" />
 </navigation>

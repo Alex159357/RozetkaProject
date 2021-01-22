@@ -3,7 +3,7 @@ package com.bmby.rozetkatestproject.framework.network.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ImageUserNetworkModel (
+data class ImageUserNetworkModel(
     @SerializedName("id")
     @Expose
     var id: String?,
@@ -14,5 +14,10 @@ data class ImageUserNetworkModel (
 
     @SerializedName("location")
     @Expose
-    var location: String?
-        )
+    var location: String?,
+
+    @SerializedName("profile_image")
+    @Expose
+    var profileImage: UserProfilePicturesNetwork?
+
+)

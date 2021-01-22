@@ -3,8 +3,9 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-
 }
+
+
 
 android {
     compileSdkVersion 30
@@ -35,12 +36,14 @@ android {
     }
 }
 
+apply plugin: 'kotlinx-serialization'
+
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     def nav_version = "2.3.2"
-
+    implementation 'com.google.android.material:material:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -84,7 +87,9 @@ dependencies {
 
     //ImageView libs
     implementation("io.coil-kt:coil:1.1.1")
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
 
 }
 

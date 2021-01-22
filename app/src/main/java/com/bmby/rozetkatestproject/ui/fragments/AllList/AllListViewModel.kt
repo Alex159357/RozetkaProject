@@ -1,5 +1,6 @@
-package com.bmby.rozetkatestproject.ui.AllList
+package com.bmby.rozetkatestproject.ui.fragments.AllList
 
+import android.os.Parcelable
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -23,10 +24,13 @@ constructor(
 
     fun setStateEvent(){
         viewModelScope.launch {
-            getImages.getTest().onEach {
+            getImages.getList().onEach {
                 _dataState.value = it
             }.launchIn(viewModelScope)
         }
     }
+
+
+
 
 }

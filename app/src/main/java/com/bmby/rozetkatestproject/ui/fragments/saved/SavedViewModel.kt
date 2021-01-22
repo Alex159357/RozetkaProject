@@ -1,4 +1,4 @@
-package com.bmby.rozetkatestproject.ui.saved
+package com.bmby.rozetkatestproject.ui.fragments.saved
 
 import androidx.lifecycle.ViewModel
 

@@ -1,14 +1,11 @@
-package com.bmby.rozetkatestproject.ui.main
+package com.bmby.rozetkatestproject.ui.activities.main
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.get
 import androidx.navigation.ui.setupWithNavController
 import com.bmby.rozetkatestproject.R
 import com.google.android.material.bottomnavigation.BottomNavigationView

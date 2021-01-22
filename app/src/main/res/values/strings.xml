@@ -3,4 +3,9 @@
     <string name="all">All</string>
     <string name="Search">Search</string>
     <string name="Saved">Saved</string>
+    <string name="walpaper">Walpaper</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="permission_required_text">permission_required_text</string>
+
 </resources>

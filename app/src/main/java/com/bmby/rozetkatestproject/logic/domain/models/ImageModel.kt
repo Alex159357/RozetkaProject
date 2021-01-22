@@ -1,6 +1,6 @@
 package com.bmby.rozetkatestproject.logic.domain.models
 
-data class ImageModel(
+data class ImageModel (
     var id: String?,
     var width: Int?,
     var height: Int?,

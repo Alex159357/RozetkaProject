@@ -1,5 +1,6 @@
 package com.bmby.rozetkatestproject.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 @Singleton
 class ImageAdaptor
 @Inject
-constructor(private var images : List<ImageModel>) : RecyclerView.Adapter<ImageAdaptor.ViewHolder>() {
+constructor(private var images : List<ImageModel>, private val context: Context) : RecyclerView.Adapter<ImageAdaptor.ViewHolder>() {
 
 
     fun addData(list: List<ImageModel>) {
@@ -30,7 +31,7 @@ constructor(private var images : List<ImageModel>) : RecyclerView.Adapter<ImageA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ImageAdaptor.ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.image_list_item, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.image_list_item, parent, false)
         )
     }
 

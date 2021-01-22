@@ -1,4 +1,4 @@
-package com.bmby.rozetkatestproject.ui.search
+package com.bmby.rozetkatestproject.ui.fragments.search
 
 import androidx.lifecycle.ViewModel
 
