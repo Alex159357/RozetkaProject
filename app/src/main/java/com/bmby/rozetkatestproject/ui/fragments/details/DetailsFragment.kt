@@ -9,11 +9,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
@@ -42,22 +44,21 @@ class DetailsFragment constructor(
 
 
     private lateinit var ll_loading_bar: LinearLayout
+    private lateinit var llPicInfo: LinearLayout
     private lateinit var detailCaption: TextView
-    lateinit var ivDetailImage: ImageView
-    lateinit var btnDownload: LinearLayout
-    lateinit var llWalpeper: LinearLayout
-    lateinit var llShare: LinearLayout
-    lateinit var imageModel: ImageModel
-    lateinit var tvUserName: TextView
-    lateinit var ivDownload: ImageView
-    lateinit var ivUserImg : ImageView
-    lateinit var pb_downloading: ProgressBar
-    lateinit var tvDownloadState: TextView
-    lateinit var tvUserLocation : TextView
-    lateinit var tvImageDescription : TextView
-    lateinit var tvLikeCount : TextView
+    private lateinit var ivDetailImage: ImageView
+    private lateinit var btnDownload: LinearLayout
+    private lateinit var llShare: LinearLayout
+    private lateinit var imageModel: ImageModel
+    private lateinit var tvUserName: TextView
+    private lateinit var ivDownload: ImageView
+    private lateinit var ivUserImg : ImageView
+    private lateinit var pb_downloading: ProgressBar
+    private lateinit var tvDownloadState: TextView
+    private lateinit var tvUserLocation : TextView
+    private lateinit var tvImageDescription : TextView
+    private lateinit var tvLikeCount : TextView
     private val viewModel: DetailsViewModel by viewModels()
-    var state = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -105,8 +106,8 @@ class DetailsFragment constructor(
             tvUserLocation = findViewById(R.id.tvUserLocation)
             tvLikeCount = findViewById(R.id.tvLikeCount)
             tvImageDescription = findViewById(R.id.tvImageDescription)
+            llPicInfo = findViewById(R.id.llPicInfo)
         }
-
         btnDownload.visibility = if(allowSaveFile) View.VISIBLE else View.GONE
     }
 
@@ -117,11 +118,32 @@ class DetailsFragment constructor(
 
     private fun displayData(data: ImageModel) {
         imageModel = data
-        ivDetailImage.load(imageModel.urls!!.regular)
+        displayImage(imageModel)
         displayProfileData(imageModel.user!!)
         tvLikeCount.text = imageModel.likes.toString()
         tvImageDescription.text = imageModel.description
-        loading(false)
+//        loading(false)
+    }
+
+    private fun displayImage(imageModel: ImageModel){
+        ivDetailImage.load(imageModel.urls!!.regular){
+            target(object : coil.target.Target {
+                override fun onSuccess(result: Drawable) {
+                    super.onSuccess(result)
+                    llPicInfo.visibility = View.VISIBLE
+                    ivDetailImage.setImageDrawable(result)
+                    loading(false)
+                }
+                override fun onStart(placeholder: Drawable?) {
+                    loading(true)
+                    super.onStart(placeholder)
+                }
+                override fun onError(error: Drawable?) {
+                    llPicInfo.visibility = View.GONE
+                    super.onError(error)
+                }
+            })
+        }
     }
 
     private fun displayProfileData(user: ImagesUserModel){
@@ -169,6 +191,12 @@ class DetailsFragment constructor(
         ivDownload.visibility = if(isLoading) View.GONE else View.VISIBLE
         pb_downloading.visibility = if(isLoading) View.VISIBLE else View.GONE
         tvDownloadState.text = if(isLoading) message else requireActivity().getText(R.string.download)
+    }
+
+    private fun getHeight(): Int{
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
     }
 
     override fun onClick(v: View?) {
