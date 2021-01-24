@@ -1,32 +1,64 @@
 package com.bmby.rozetkatestproject.ui.fragments.saved
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.bmby.rozetkatestproject.R
+import com.bmby.rozetkatestproject.logic.domain.models.ImageModel
+import com.bmby.rozetkatestproject.logic.domain.states.DataState
+import dagger.hilt.android.AndroidEntryPoint
 
-class SavedFragment : Fragment() {
+@AndroidEntryPoint
+class SavedFragment : Fragment(R.layout.saved_fragment) {
 
-    companion object {
-        fun newInstance() = SavedFragment()
+    private val viewModel: SavedViewModel by viewModels()
+    private lateinit var ll_loading_bar: LinearLayout
+    private lateinit var tvCaption: TextView
+    private lateinit var rvSavedImages: RecyclerView
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialize(view)
+        viewModel.setStateEvent()
+        subscribeObservers()
     }
 
-    private lateinit var viewModel: SavedViewModel
+    //TODO remove search fragments and add about fragment.
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.saved_fragment, container, false)
+    private fun subscribeObservers(){
+        viewModel.dataState.observe(viewLifecycleOwner, {
+            when (it) {
+                is DataState.Success -> displayData(it.data)
+                is DataState.Error -> displayError(it.exception.message!!)
+                DataState.Loading -> loading(true)
+            }
+        })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SavedViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun initialize(view: View){
+        with(view){
+            ll_loading_bar = findViewById(R.id.ll_loading_bar)
+            tvCaption = findViewById(R.id.tvSavedListCaption)
+            rvSavedImages = findViewById(R.id.rvSavedImages)
+        }
     }
+
+    private fun loading(b: Boolean) {
+        Log.e("ShowFromDb", "Loading is -> $b")
+    }
+
+    private fun displayError(message: String) {
+        Log.e("ShowFromDb", "Error -> $message")
+    }
+
+    private fun displayData(data: List<ImageModel>) {
+        Log.e("ShowFromDb", "Data loaded -> ${data.size}")
+    }
+
 
 }

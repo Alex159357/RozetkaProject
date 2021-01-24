@@ -54,7 +54,7 @@
     </LinearLayout>
     <TextView
         android:visibility="gone"
-        android:id="@+id/testCaption"
+        android:id="@+id/tvAllListCation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

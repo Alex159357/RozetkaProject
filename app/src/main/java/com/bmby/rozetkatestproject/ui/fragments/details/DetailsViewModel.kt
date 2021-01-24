@@ -29,7 +29,7 @@ constructor(
 
     fun setStateEvent(id: String){
         viewModelScope.launch {
-            getImages.getById(id).onEach {
+            getImages.downloadById(id).onEach {
                 _dataState.value = it
             }.launchIn(viewModelScope)
         }

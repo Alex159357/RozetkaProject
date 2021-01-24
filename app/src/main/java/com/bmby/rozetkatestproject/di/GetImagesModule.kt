@@ -22,5 +22,4 @@ object GetImagesModule {
     ): GetImages {
         return GetImages(cacheDataSource, networkDataSource)
     }
-
 }

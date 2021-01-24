@@ -3,14 +3,11 @@ package com.bmby.rozetkatestproject.ui.fragments.AllList
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bmby.rozetkatestproject.R
@@ -27,18 +24,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class AllListFragment : Fragment(R.layout.all_list_fragment) {
 
-    companion object {
-        fun newInstance() = AllListFragment()
-    }
-
     private lateinit var ll_loading_bar: LinearLayout
     private lateinit var testCaption: TextView
-    private val viewModel: AllListViewModel by viewModels()
     private lateinit var rvImages: RecyclerView
     private lateinit var imageAdapter: ImageAdaptor
     private var imagesList: List<ImageModel> = listOf()
     var rcViewState : Parcelable? = null
-
+    private val viewModel: AllListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +48,9 @@ class AllListFragment : Fragment(R.layout.all_list_fragment) {
     }
 
     private fun initialize(view: View) {
-
         with(view) {
             ll_loading_bar = findViewById(R.id.ll_loading_bar)
-            testCaption = findViewById(R.id.testCaption)
+            testCaption = findViewById(R.id.tvAllListCation)
             rvImages = findViewById(R.id.rvImages)
         }
     }
@@ -91,7 +82,6 @@ class AllListFragment : Fragment(R.layout.all_list_fragment) {
     }
 
     private fun displayData(data: List<ImageModel>) {
-
         imageAdapter.addData(data)
         imagesList = data
         imageAdapter.notifyDataSetChanged()

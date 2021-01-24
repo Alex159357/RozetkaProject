@@ -1,6 +1,5 @@
 package com.bmby.rozetkatestproject.ui.fragments.AllList
 
-import android.os.Parcelable
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -24,7 +23,7 @@ constructor(
 
     fun setStateEvent(){
         viewModelScope.launch {
-            getImages.getList().onEach {
+            getImages.downloadImagelist().onEach {
                 _dataState.value = it
             }.launchIn(viewModelScope)
         }

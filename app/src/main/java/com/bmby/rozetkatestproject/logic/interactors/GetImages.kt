@@ -22,9 +22,9 @@ class GetImages constructor(
     private val networkDataSource: NetworkDataSource
 ) {
 
-    suspend fun getList(): Flow<DataState<List<ImageModel>>> = flow {
+    suspend fun downloadImagelist(): Flow<DataState<List<ImageModel>>> = flow {
+        emit(DataState.Loading)
         try {
-            emit(DataState.Loading)
 //            val serverResult = networkDataSource.search("London")
             val serverResult = networkDataSource.get()
             Log.e("Loaded ", serverResult.size.toString())
@@ -36,7 +36,7 @@ class GetImages constructor(
     }
 
 
-    suspend fun getById(id:String) : Flow<DataState<ImageModel>> = flow {
+    suspend fun downloadById(id:String) : Flow<DataState<ImageModel>> = flow {
         try{
             emit(DataState.Loading)
             val imageModel: ImageModel = networkDataSource.getById(id)
@@ -47,6 +47,16 @@ class GetImages constructor(
         }
     }
 
+
+    suspend fun getListFromCache() : Flow<DataState<List<ImageModel>>> = flow {
+        emit(DataState.Loading)
+        try{
+            val imageList = cacheDataSource.get()
+            emit(DataState.Success(imageList))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
+    }
 
 
 }
