@@ -13,4 +13,12 @@ class ImagesCacheEntity(
     @ColumnInfo(name = "id")
     var id: String,
 
-)
+    @ColumnInfo(name = "thumb")
+    var thumb: String,
+
+    @ColumnInfo(name = "full")
+    var full: String,
+
+
+
+    )

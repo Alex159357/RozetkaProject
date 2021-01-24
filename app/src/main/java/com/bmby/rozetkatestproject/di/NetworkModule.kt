@@ -81,7 +81,6 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
     }
 
-
     @Singleton
     @Provides
     fun provideDownloader(@ApplicationContext appContext: Context): ImageDownloader {
@@ -104,17 +103,14 @@ object NetworkModule {
         return ImageRetrofitServiceImpl(blogRetrofit)
     }
 
-
     @Singleton
     @Provides
     fun provideNetworkDataSource(
         blogRetrofitService: ImageRetrofitService,
         networkMapper: NetworkMapper,
         imageDownloader: ImageDownloader,
-        urlsMapper: UrlsMapper
     ): NetworkDataSource {
         return NetworkDataSourceImpl(blogRetrofitService, networkMapper, imageDownloader)
     }
-
 
 }

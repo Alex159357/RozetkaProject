@@ -35,9 +35,9 @@ constructor(
         }
     }
 
-    fun downloadImage(url: String){
+    fun downloadImage(imageModel: ImageModel){
         viewModelScope.launch {
-            saveImage.downloadImage(url).onEach {
+            saveImage.downloadImage(imageModel).onEach {
                 _downloadDataState.value = it
             }.launchIn(viewModelScope)
         }

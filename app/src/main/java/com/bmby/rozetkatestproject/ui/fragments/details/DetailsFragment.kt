@@ -45,6 +45,7 @@ class DetailsFragment constructor(
 
     private lateinit var ll_loading_bar: LinearLayout
     private lateinit var llPicInfo: LinearLayout
+    private lateinit var llDownloadImageLayout: LinearLayout
     private lateinit var detailCaption: TextView
     private lateinit var ivDetailImage: ImageView
     private lateinit var btnDownload: LinearLayout
@@ -53,7 +54,6 @@ class DetailsFragment constructor(
     private lateinit var tvUserName: TextView
     private lateinit var ivDownload: ImageView
     private lateinit var ivUserImg : ImageView
-    private lateinit var pb_downloading: ProgressBar
     private lateinit var tvDownloadState: TextView
     private lateinit var tvUserLocation : TextView
     private lateinit var tvImageDescription : TextView
@@ -98,7 +98,6 @@ class DetailsFragment constructor(
             detailCaption = findViewById(R.id.detailCaption)
             btnDownload = findViewById(R.id.btnDownload)
             llShare = findViewById(R.id.llShare)
-            pb_downloading = findViewById(R.id.pb_downloading)
             ivDownload = findViewById(R.id.ivDownload)
             tvDownloadState = findViewById(R.id.tvDownloadState)
             ivUserImg = findViewById(R.id.ivUserImg)
@@ -107,6 +106,7 @@ class DetailsFragment constructor(
             tvLikeCount = findViewById(R.id.tvLikeCount)
             tvImageDescription = findViewById(R.id.tvImageDescription)
             llPicInfo = findViewById(R.id.llPicInfo)
+            llDownloadImageLayout = findViewById(R.id.llDownloadImageLayout)
         }
         btnDownload.visibility = if(allowSaveFile) View.VISIBLE else View.GONE
     }
@@ -122,7 +122,6 @@ class DetailsFragment constructor(
         displayProfileData(imageModel.user!!)
         tvLikeCount.text = imageModel.likes.toString()
         tvImageDescription.text = imageModel.description
-//        loading(false)
     }
 
     private fun displayImage(imageModel: ImageModel){
@@ -178,7 +177,7 @@ class DetailsFragment constructor(
     }
 
     private fun downloadImage() {
-        viewModel.downloadImage(imageModel.urls!!.raw!!)
+        viewModel.downloadImage(imageModel)
     }
 
 
@@ -188,15 +187,10 @@ class DetailsFragment constructor(
     }
 
     private fun downloadImageStatus(isLoading: Boolean, message: String){
-        ivDownload.visibility = if(isLoading) View.GONE else View.VISIBLE
-        pb_downloading.visibility = if(isLoading) View.VISIBLE else View.GONE
-        tvDownloadState.text = if(isLoading) message else requireActivity().getText(R.string.download)
-    }
-
-    private fun getHeight(): Int{
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
+//        ivDownload.visibility = if(isLoading) View.GONE else View.VISIBLE
+        llDownloadImageLayout.visibility = if(!isLoading) View.GONE else View.VISIBLE
+//        pb_downloading.visibility = if(isLoading) View.VISIBLE else View.GONE
+//        tvDownloadState.text = if(isLoading) message else requireActivity().getText(R.string.download)
     }
 
     override fun onClick(v: View?) {

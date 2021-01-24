@@ -21,13 +21,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/pb_downloading"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="12dp"
-                android:visibility="gone" />
-
             <ImageView
                 android:id="@+id/ivDownload"
                 android:layout_width="50dp"

@@ -2,6 +2,7 @@ package com.bmby.rozetkatestproject.di
 
 import android.content.Context
 import com.bmby.rozetkatestproject.framework.network.downloader.ImageDownloader
+import com.bmby.rozetkatestproject.logic.cache.CacheDataSource
 import com.bmby.rozetkatestproject.logic.interactors.SaveImage
 import com.bmby.rozetkatestproject.logic.network.NetworkDataSource
 import dagger.Module
@@ -17,8 +18,8 @@ object DownloaderModule {
 
     @Singleton
     @Provides
-    fun provideSaveImage(networkDataSource: NetworkDataSource): SaveImage{
-        return SaveImage(networkDataSource)
+    fun provideSaveImage(networkDataSource: NetworkDataSource, cacheDataSource: CacheDataSource): SaveImage{
+        return SaveImage(networkDataSource, cacheDataSource)
     }
 
 }
