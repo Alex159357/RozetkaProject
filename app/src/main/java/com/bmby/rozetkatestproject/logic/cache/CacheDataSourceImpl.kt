@@ -22,5 +22,13 @@ class CacheDataSourceImpl constructor(
         return cacheMapper.mapFromEntityList(imageDaoService.get())
     }
 
+    override suspend fun getSortedByDate(): List<ImageModel> {
+        return cacheMapper.mapFromEntityList(imageDaoService.getSortedByDate())
+    }
+
+    override suspend fun getSortedByUser(): List<ImageModel> {
+        return cacheMapper.mapFromEntityList(imageDaoService.getSortedByUser())
+    }
+
 
 }

@@ -9,5 +9,6 @@ data class ImageModel (
     var description: String?,
 //    var tags: List<ImageTagsModel>,
     var urls: ImageUrlsModel?,
-    var user: ImagesUserModel?
+    var user: ImagesUserModel?,
+    var savedDate: Long?
 )

@@ -35,6 +35,20 @@ class GetImages constructor(
         }
     }
 
+    suspend fun searchImagelist(q: String): Flow<DataState<List<ImageModel>>> = flow {
+        emit(DataState.Loading)
+        try {
+            val serverResult = networkDataSource.search(q)
+            Log.e("Loaded ", serverResult.size.toString())
+            emit(DataState.Success(serverResult))
+        } catch (e: IOException) {
+            e.stackTrace
+            emit(DataState.Error(e))
+        }
+    }
+
+
+
 
     suspend fun downloadById(id:String) : Flow<DataState<ImageModel>> = flow {
         try{
@@ -52,6 +66,27 @@ class GetImages constructor(
         emit(DataState.Loading)
         try{
             val imageList = cacheDataSource.get()
+            emit(DataState.Success(imageList))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
+    }
+
+
+    suspend fun getListFromCacheByDate() : Flow<DataState<List<ImageModel>>> = flow {
+        emit(DataState.Loading)
+        try{
+            val imageList = cacheDataSource.getSortedByDate()
+            emit(DataState.Success(imageList))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
+    }
+
+    suspend fun getListFromCacheByUser() : Flow<DataState<List<ImageModel>>> = flow {
+        emit(DataState.Loading)
+        try{
+            val imageList = cacheDataSource.getSortedByUser()
             emit(DataState.Success(imageList))
         }catch (e: Exception){
             emit(DataState.Error(e))

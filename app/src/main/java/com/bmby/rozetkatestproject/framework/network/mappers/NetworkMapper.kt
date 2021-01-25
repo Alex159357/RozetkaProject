@@ -28,7 +28,8 @@ constructor(
             likes = entity.likes,
             description = entity.description,
             urls = urlsMapper.mapFromEntity(entity.urls),
-            user = userMapper.mapFromEntity(entity.user!!)
+            user = userMapper.mapFromEntity(entity.user!!),
+            savedDate = null
         )
     }
 

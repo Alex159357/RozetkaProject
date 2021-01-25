@@ -13,4 +13,12 @@ constructor(private val imagesDao: ImagesDao) :ImagesDaoService
     override suspend fun get(): List<ImagesCacheEntity> {
         return imagesDao.get()
     }
+
+    override suspend fun getSortedByDate(): List<ImagesCacheEntity> {
+        return imagesDao.getSortedByDate()
+    }
+
+    override suspend fun getSortedByUser(): List<ImagesCacheEntity> {
+        return imagesDao.getSortedByUser()
+    }
 }

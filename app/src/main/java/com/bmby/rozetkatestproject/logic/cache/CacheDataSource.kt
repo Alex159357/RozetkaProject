@@ -10,5 +10,11 @@ interface CacheDataSource {
 
     suspend fun get(): List<ImageModel>
 
+    suspend fun getSortedByDate(): List<ImageModel>
+
+    suspend fun getSortedByUser(): List<ImageModel>
+
+
+
 
 }

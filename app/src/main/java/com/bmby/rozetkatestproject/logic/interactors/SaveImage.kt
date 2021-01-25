@@ -37,11 +37,8 @@ class SaveImage constructor(
                 }
                 else -> emit(ImageDownloadState.Fail)
             }
+            imageModel.savedDate = System.currentTimeMillis()
             cacheDataSource.insert(imageModel)
-            val count = cacheDataSource.get().size
-
-            Log.e("InDb", "$count")
-
         } catch (e: IOException) {
             emit(ImageDownloadState.Error(e))
         }

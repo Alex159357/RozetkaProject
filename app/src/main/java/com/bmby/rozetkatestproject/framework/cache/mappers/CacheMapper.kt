@@ -3,6 +3,8 @@ package com.bmby.rozetkatestproject.framework.cache.mappers
 import com.bmby.rozetkatestproject.framework.cache.models.ImagesCacheEntity
 import com.bmby.rozetkatestproject.logic.domain.models.ImageModel
 import com.bmby.rozetkatestproject.logic.domain.models.ImageUrlsModel
+import com.bmby.rozetkatestproject.logic.domain.models.ImagesUserModel
+import com.bmby.rozetkatestproject.logic.domain.models.UserProfileImage
 import com.bmby.rozetkatestproject.logic.domain.util.EntityMapper
 import javax.inject.Inject
 
@@ -18,7 +20,14 @@ constructor() : EntityMapper<ImagesCacheEntity, ImageModel> {
                 regular = null,
                 small = null,
                 thumb = entity.thumb
-            ), null
+            ),
+            user = ImagesUserModel(
+                name = entity.userName,
+                id = entity.userId,
+                location = "",
+                profile_image = null
+            ),
+            savedDate = entity.savedDate,
         )
     }
 
@@ -26,7 +35,10 @@ constructor() : EntityMapper<ImagesCacheEntity, ImageModel> {
         return ImagesCacheEntity(
             id = domainModel.id!!,
             thumb = domainModel.urls!!.thumb!!,
-            full = domainModel.urls!!.full!!
+            full = domainModel.urls!!.full!!,
+            savedDate = domainModel.savedDate!!,
+            userName = domainModel.user!!.name,
+            userId = domainModel.user!!.id
         )
     }
 

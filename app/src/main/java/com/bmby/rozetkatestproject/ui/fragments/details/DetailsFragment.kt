@@ -146,7 +146,7 @@ class DetailsFragment constructor(
     }
 
     private fun displayProfileData(user: ImagesUserModel){
-        ivUserImg.load(user.profile_image.medium) {
+        ivUserImg.load(user.profile_image!!.medium) {
             crossfade(true)
             placeholder(R.drawable.ic_baseline_account_circle_24)
             transformations(CircleCropTransformation())

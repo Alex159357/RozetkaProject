@@ -18,8 +18,8 @@ interface ImageRetrofit {
 
     @GET("search/photos")
     suspend fun search(
-        @Query("query") query: String,
         @Query("client_id") client_id: String,
+        @Query("query") query: String,
         @Query("page") page : Int
     ): SearchNetworkImageModel
 

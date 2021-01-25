@@ -20,7 +20,8 @@ import javax.inject.Singleton
 @Singleton
 class ImageAdaptor
 @Inject
-constructor(private var images : List<ImageModel>, private val context: Context) : RecyclerView.Adapter<ImageAdaptor.ViewHolder>() {
+constructor(private var images : List<ImageModel>, private val context: Context) :
+    RecyclerView.Adapter<ImageAdaptor.ViewHolder>() {
 
 
     fun addData(list: List<ImageModel>) {
@@ -47,7 +48,7 @@ constructor(private var images : List<ImageModel>, private val context: Context)
             crossfade(false)
             transformations(RoundedCornersTransformation(5f))
         }
-        holder.ivUserPic.load(image.user!!.profile_image.small) {
+        holder.ivUserPic.load(image.user!!.profile_image!!.small) {
             crossfade(true)
             placeholder(R.drawable.ic_baseline_account_circle_24)
             transformations(CircleCropTransformation())

@@ -1,4 +1,4 @@
-package com.bmby.rozetkatestproject.ui.fragments.AllList
+package com.bmby.rozetkatestproject.ui.fragments.allList
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -24,6 +24,15 @@ constructor(
     fun setStateEvent(){
         viewModelScope.launch {
             getImages.downloadImagelist().onEach {
+                _dataState.value = it
+            }.launchIn(viewModelScope)
+        }
+    }
+
+
+    fun setStateEventSearch(q: String){
+        viewModelScope.launch {
+            getImages.searchImagelist(q).onEach {
                 _dataState.value = it
             }.launchIn(viewModelScope)
         }

@@ -15,4 +15,11 @@ interface ImagesDao {
     @Query("SELECT * FROM images")
     suspend fun get(): List<ImagesCacheEntity>
 
+    @Query("SELECT * from images ORDER BY saved_date DESC")
+    suspend fun getSortedByDate(): List<ImagesCacheEntity>
+
+    @Query("SELECT * from images ORDER BY user_id ASC")
+    suspend fun getSortedByUser(): List<ImagesCacheEntity>
+
+
 }

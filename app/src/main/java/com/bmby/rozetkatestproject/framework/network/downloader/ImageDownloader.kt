@@ -8,8 +8,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import java.io.File
 import java.lang.Exception
 
