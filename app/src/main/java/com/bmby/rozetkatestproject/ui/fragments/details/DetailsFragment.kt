@@ -96,6 +96,7 @@ class DetailsFragment constructor(
                 ImageDownloadState.Running -> downloadImageStatus(true)
                 is ImageDownloadState.Error -> downloadingMessages(it.exception.message!!)
             }
+
         })
     }
 
