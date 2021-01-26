@@ -8,7 +8,8 @@
     <string name="share">Share</string>
     <string name="permission_required_text">permission_required_text</string>
     <string name="by_user">By user</string>
-    <string name="by_saved_date">By saved date</string>
+    <string name="by_likes">By likes count</string>
     <string name="clear">Clear</string>
+    <string name="loading">Loading...</string>
 
 </resources>

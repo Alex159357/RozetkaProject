@@ -11,9 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AboutFragment : Fragment(R.layout.about_fragment) {
 
-
-
-    private  val viewModel: AboutViewModel by viewModels()
     lateinit var webView: WebView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

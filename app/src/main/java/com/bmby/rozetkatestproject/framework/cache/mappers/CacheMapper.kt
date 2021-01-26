@@ -13,7 +13,8 @@ class CacheMapper
 constructor() : EntityMapper<ImagesCacheEntity, ImageModel> {
     override fun mapFromEntity(entity: ImagesCacheEntity): ImageModel {
         return ImageModel(
-            entity.id, null, null, null, null, null,
+            entity.id, null, null, null,
+            likes =  entity.likes, null,
             urls = ImageUrlsModel(
                 raw = null,
                 full = entity.full,
@@ -38,7 +39,8 @@ constructor() : EntityMapper<ImagesCacheEntity, ImageModel> {
             full = domainModel.urls!!.full!!,
             savedDate = domainModel.savedDate!!,
             userName = domainModel.user!!.name,
-            userId = domainModel.user!!.id
+            userId = domainModel.user!!.id,
+            likes = domainModel.likes!!
         )
     }
 

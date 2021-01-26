@@ -19,15 +19,16 @@ class ImagesCacheEntity(
     @ColumnInfo(name = "full")
     var full: String,
 
-
     @ColumnInfo(name = "saved_date")
     var savedDate: Long,
 
     @ColumnInfo(name = "creater")
     var userName: String,
 
-
     @ColumnInfo(name = "user_id")
     var userId: String,
+
+    @ColumnInfo(name = "likes")
+    var likes: Int,
 
     )

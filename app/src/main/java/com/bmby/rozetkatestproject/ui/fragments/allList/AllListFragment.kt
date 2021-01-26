@@ -2,6 +2,7 @@ package com.bmby.rozetkatestproject.ui.fragments.allList
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -29,7 +30,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorActionListener, View.OnClickListener {
+class AllListFragment : Fragment(R.layout.all_list_fragment),
+    TextView.OnEditorActionListener,
+    View.OnClickListener {
 
     private lateinit var ll_loading_bar: LinearLayout
     private lateinit var testCaption: TextView
@@ -48,13 +51,18 @@ class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorA
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        load()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize(view)
         setUpElement()
         setupRecyclerView()
         subscribeObservers()
-        viewModel.setStateEvent()
+        load()
     }
 
     private fun initialize(view: View) {
@@ -74,14 +82,16 @@ class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorA
     }
 
     private fun setupRecyclerView() {
+        val spanCount = if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 3 else 2
         imageAdapter = ImageAdaptor(imagesList, requireContext())
         rvImages.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), spanCount)
             adapter = imageAdapter
         }
-
     }
+
+
 
     private fun subscribeObservers() {
         viewModel.dataState.observe(viewLifecycleOwner, {
@@ -108,7 +118,7 @@ class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorA
     private fun displayData(data: List<ImageModel>) {
         if(data.isEmpty()){
             displayError("No data found")
-        }
+        }else displayError("")
         imageAdapter.addData(data)
         imagesList = data
         imageAdapter.notifyDataSetChanged()
@@ -130,6 +140,7 @@ class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorA
     private fun displayError(e: String) {
         testCaption.visibility = View.VISIBLE
         testCaption.text = e
+        loading(false)
     }
 
     private fun loading(isDisplayed: Boolean) {
@@ -138,7 +149,7 @@ class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorA
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if(actionId == EditorInfo.IME_ACTION_SEARCH){
-            search()
+            load()
             return true
         }
         return false
@@ -146,11 +157,11 @@ class AllListFragment : Fragment(R.layout.all_list_fragment), TextView.OnEditorA
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.ibntSearch -> search()
+            R.id.ibntSearch -> load()
         }
     }
 
-    private fun search(){
+    private fun load(){
         val inputMethodManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
         var request: String = etSearch.text.toString()

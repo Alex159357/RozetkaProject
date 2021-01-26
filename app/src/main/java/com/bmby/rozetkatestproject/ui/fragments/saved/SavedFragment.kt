@@ -1,16 +1,16 @@
 package com.bmby.rozetkatestproject.ui.fragments.saved
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bmby.rozetkatestproject.R
 import com.bmby.rozetkatestproject.logic.domain.models.ImageModel
 import com.bmby.rozetkatestproject.logic.domain.states.DataState
@@ -58,10 +58,14 @@ class SavedFragment : Fragment(R.layout.saved_fragment), View.OnClickListener {
     }
 
     private fun setupRecyclerView() {
+        val spanCount = if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 3 else 2
         downloadedListAdapter = DownloadedListAdapter(imagesList, requireContext())
         rvSavedImages.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = StaggeredGridLayoutManager(
+                spanCount,
+                StaggeredGridLayoutManager.VERTICAL
+            )
             adapter = downloadedListAdapter
         }
     }

@@ -18,7 +18,6 @@ class SaveImage constructor(
 ) {
     suspend fun downloadImage(imageModel: ImageModel): Flow<ImageDownloadState<Nothing>> = flow {
         emit(ImageDownloadState.Pending)
-        //todo Add save with date and add date variable to cacheModel.tk
         delay(100)
         try {
             when (networkDataSource.downloadImage(imageModel.urls!!.full!!)) {

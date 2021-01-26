@@ -13,8 +13,6 @@ import java.lang.Exception
 
 class ImageDownloader constructor(private val context: Context){
 
-
-
     fun downloadImage(url: String): Int {
         val directory = File(Environment.DIRECTORY_PICTURES)
         if (!directory.exists()) {
@@ -36,9 +34,7 @@ class ImageDownloader constructor(private val context: Context){
         val query = DownloadManager.Query().setFilterById(downloadId)
         var downloading = true
         var status: Int = 0
-        Log.e("Downloading", "Start")
         while (downloading) {
-            Log.e("Downloading", "downloading in progress...")
             val cursor: Cursor = downloadManager.query(query)
             cursor.moveToFirst()
             if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {

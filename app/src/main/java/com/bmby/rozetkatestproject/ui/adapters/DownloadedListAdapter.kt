@@ -38,16 +38,17 @@ class DownloadedListAdapter
             transformations(RoundedCornersTransformation(5f))
         }
         holder.tvSavedDate.text = image.savedDate.toDate
+        holder.tvLikes.text = image.likes.toString()
     }
 
     override fun getItemCount(): Int {
         return images.size
     }
 
-
     class ViewHolder constructor(private val view: View): RecyclerView.ViewHolder(view) {
-        val ivImage = view.findViewById<ImageView>(R.id.ivImage)
-        val tvSavedDate = view.findViewById<TextView>(R.id.tvSavedDate)
+        val ivImage = view.findViewById<ImageView>(R.id.ivImage)!!
+        val tvSavedDate = view.findViewById<TextView>(R.id.tvSavedDate)!!
+        val tvLikes = view.findViewById<TextView>(R.id.tvLikes)
     }
 
 
