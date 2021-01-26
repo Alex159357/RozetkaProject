@@ -16,6 +16,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
@@ -36,12 +37,11 @@ import java.io.File
 import java.io.FileOutputStream
 
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class DetailsFragment constructor(
-    private val id: String?,
-    private val allowSaveFile: Boolean
+    private val id: String?
 ) : Fragment(R.layout.details_fragment), View.OnClickListener {
-
 
     private lateinit var ll_loading_bar: LinearLayout
     private lateinit var llPicInfo: LinearLayout
@@ -59,6 +59,14 @@ class DetailsFragment constructor(
     private lateinit var tvImageDescription : TextView
     private lateinit var tvLikeCount : TextView
     private val viewModel: DetailsViewModel by viewModels()
+    private val permissionsList = listOf(Manifest.permission.WRITE_EXTERNAL_STORAGE).toTypedArray()
+    private val MY_PERMISSIONS_ERQUEST = 100
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        askPermissions()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,9 +91,9 @@ class DetailsFragment constructor(
             when(it){
                 is ImageDownloadState.Success -> downloadingMessages("Download successfully")
                 ImageDownloadState.Fail -> downloadingMessages("Download fail, try more")
-                ImageDownloadState.Paused -> downloadImageStatus(true, "Paused")
-                ImageDownloadState.Pending -> downloadImageStatus(true, "Pending...")
-                ImageDownloadState.Running -> downloadImageStatus(true, "Downloading...")
+                ImageDownloadState.Paused -> downloadImageStatus(true)
+                ImageDownloadState.Pending -> downloadImageStatus(true)
+                ImageDownloadState.Running -> downloadImageStatus(true)
                 is ImageDownloadState.Error -> downloadingMessages(it.exception.message!!)
             }
         })
@@ -108,7 +116,6 @@ class DetailsFragment constructor(
             llPicInfo = findViewById(R.id.llPicInfo)
             llDownloadImageLayout = findViewById(R.id.llDownloadImageLayout)
         }
-        btnDownload.visibility = if(allowSaveFile) View.VISIBLE else View.GONE
     }
 
     private fun setUpComponents(){
@@ -177,20 +184,32 @@ class DetailsFragment constructor(
     }
 
     private fun downloadImage() {
-        viewModel.downloadImage(imageModel)
+        if(askPermissions())
+            viewModel.downloadImage(imageModel)
     }
 
 
+    private fun askPermissions() : Boolean{
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                permissionsList, MY_PERMISSIONS_ERQUEST)
+        }else{
+            return true
+        }
+        return false
+    }
+
     private fun downloadingMessages(msg: String){
-        downloadImageStatus(false, "")
+        downloadImageStatus(false)
         Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
     }
 
-    private fun downloadImageStatus(isLoading: Boolean, message: String){
-//        ivDownload.visibility = if(isLoading) View.GONE else View.VISIBLE
+    private fun downloadImageStatus(isLoading: Boolean){
         llDownloadImageLayout.visibility = if(!isLoading) View.GONE else View.VISIBLE
-//        pb_downloading.visibility = if(isLoading) View.VISIBLE else View.GONE
-//        tvDownloadState.text = if(isLoading) message else requireActivity().getText(R.string.download)
     }
 
     override fun onClick(v: View?) {
@@ -199,5 +218,4 @@ class DetailsFragment constructor(
             R.id.btnDownload -> downloadImage()
         }
     }
-
 }

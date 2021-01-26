@@ -10,12 +10,11 @@ constructor(
 ): FragmentFactory() {
 
     lateinit var id : String
-    var allowSaveFiles: Boolean = false
 
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (className) {
             DetailsFragment::class.java.name -> {
-                val fragment = DetailsFragment(id, allowSaveFiles)
+                val fragment = DetailsFragment(id)
                 fragment
             }
             else -> super.instantiate(classLoader, className)
